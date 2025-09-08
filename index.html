@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Private Plates - Personalized Dining</title>
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -16,6 +17,9 @@
             --white-pure: #FFFFFF;
             --gray-dark: #2E2E2E;
             --gray-light: #f8f9fa;
+
+            --font-primary: 'Futura PT', 'Futura', 'Inter', sans-serif;
+    --font-serif: 'Playfair Display', serif; /* Bu değişmedi */
         }
 
         * {
@@ -29,7 +33,7 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-primary);
             line-height: 1.6;
             color: var(--navy-primary);
             background-color: var(--white-pure);
@@ -185,6 +189,7 @@
             text-align: center;
             margin-top: 20px;
             width: 100%;
+            height: 70%;
         }
 
         .mobile-nav-links li {
@@ -192,16 +197,18 @@
         }
 
         .mobile-nav-links a {
-            color: var(--white-pure);
-            text-decoration: none;
-            font-size: 1.25rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            display: block;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    color: var(--white-pure);
+    text-decoration: none;
+    font-size: 1.1rem; /* Yazı boyutunu küçültebilirsiniz */
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    display: block;
+    padding: 8px 0; /* Dikey padding'i azaltın */
+    
+    margin: 0; /* Varsayılan margin'i sıfırlayın */
+    line-height: 1.2; /* Satır yüksekliğini azaltın */
+}
 
         .mobile-nav-links a:hover {
             color: var(--gold-accent);
@@ -237,6 +244,7 @@
             align-items: center;
             background-color: var(--white-pure);
             position: relative;
+            
         }
 
         .hero-bg {
@@ -262,14 +270,14 @@
         .hero-content {
             position: relative;
             z-index: 10;
-            max-width: 800px;
+            max-width: 900px;
             margin-left: 200px;
             
         }
 
         .hero-title {
-            font-size: 3rem;
-            font-weight: 600;
+            font-size: 5rem;
+            font-weight: 300;
             line-height: 1.1;
             margin-bottom: 24px;
             color: var(--navy-primary);
@@ -350,25 +358,8 @@
             transform: scale(1.05);
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 32px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
+        
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
 
         /* Process Section */
         .process {
@@ -634,7 +625,7 @@
         }
 
         .testimonial-text::before {
-            content: ;
+            
             font-size: 3rem;
             color: var(--gold-accent);
             position: absolute;
@@ -1161,6 +1152,21 @@
                 flex-direction: column;
                 gap: 40px;
             }
+
+            .hero-content {
+                margin-top: 120px;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .btn-third {
+                padding: 15px;
+                margin-bottom: 30px;
+                color: #001064;
+                background-color: rgba(255, 255, 255, 0.60)
+                
+                
+            }
         }
     </style>
 </head>
@@ -1201,9 +1207,7 @@
         </button>
 
         
-        <div class="logo">
-            <img src="images/privateplates/privateolateslogowhite.png" alt="Private Plates Logo">
-        </div>
+       
         
         <ul class="mobile-nav-links">
             <li><a onclick="scrollToSection('about'); closeMobileMenu();">ABOUT</a></li>
@@ -1213,6 +1217,11 @@
             <li><a onclick="scrollToSection('contact'); closeMobileMenu();">CONTACT</a></li>
         </ul>
         <a onclick="scrollToSection('contact'); closeMobileMenu();" class="cta-btn" style="margin-top: 2rem;">Request A Quote</a>
+        
+        <div class="logo">
+            <img src="images/privateplates/privateolateslogowhite.png" alt="Private Plates Logo">
+        </div>
+    
     </div>
 
     <!-- Hero Section -->
@@ -1224,7 +1233,8 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="hero-title font-serif">
-                    Crafted for <span class="accent">Your Taste.</span>
+                    <span style="font-family: 'Futura', sans-serif;">Crafted for</span> 
+                    <span class="accent">Your Taste.</span>
                 </h1>
                 <p class="hero-text">
                     Custom weekly meal prep & chef experiences.
@@ -1236,11 +1246,7 @@
                 </div>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <svg width="24" height="24" fill="none" stroke="var(--navy-primary)" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-            </svg>
-        </div>
+       
     </section>
 
     <!-- Process Section -->
@@ -1356,7 +1362,7 @@
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
         <div class="container">
-            <h2 class="section-title font-serif">CLIENT TESTIMONIALS</h2>
+            <h2 class="section-title font-serif">TESTIMONIALS</h2>
             <div class="section-divider"></div>
             
             <div class="testimonials-container">
@@ -1398,7 +1404,7 @@
                     </div>
                 </div>
                 
-                <h3 class="section-title font-serif" style="font-size: 2rem; margin-bottom: 40px;">GALLERY</h3>
+                <h3 class="section-title font-serif" style="font-size: 2rem; margin-bottom: 40px;"></h3>
                 <!-- Gallery Section -->
                 <!-- Gallery Section -->
 <div class="gallery">
@@ -1494,7 +1500,7 @@
             <p>Ready to elevate your next event? Let's create something extraordinary together.</p>
             
             <!-- Formspree form action ile değiştirildi -->
-            <form class="form" id="contactForm" action="https://formspree.io/f/xnnblboy" method="POST">
+            <form class="form" id="contactForm" action="https://formspree.io/f/mldwaryk" method="POST">
                 <div class="form-group">
                     <label for="name" class="form-label">Full Name</label>
                     <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
@@ -1536,7 +1542,7 @@
                 <!-- Quick Selector Section -->
                 <div class="form-group">
                     <label class="form-label">Quick Selector (for the inquiry form)</label>
-                    <p style="color: rgba(255, 255, 255, 0.7; font-size: 0.9rem; margin-bottom: 10px;">Pick your lane(s):</p>
+                    <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-bottom: 10px;">Pick your lane(s):</p>
                     
                     <div class="form-checkbox-group">
                         <label class="form-checkbox-label">
@@ -1613,6 +1619,7 @@
                         <select id="schedule" name="schedule" class="form-input">
                             <option value="">Select schedule</option>
                             <option value="3">3 days/week</option>
+                            <option value="4">4 days/week</option>
                             <option value="5">5 days/week</option>
                         </select>
                     </div>
@@ -1661,7 +1668,7 @@
                 <div class="contact-info">
                     <a href="tel:6479074993">(647) 907-4993</a>
                     <a href="mailto:privateplatesfood@gmail.com">privateplatesfood@gmail.com</a>
-                    <p>5311 Goring Street, Burnaby, BC</p>
+                    <p> Burnaby, BC</p>
                 </div>
                 <div class="social-links">
                     <a href="https://www.instagram.com/privateplatesfood/" class="social-link" target="_blank">
