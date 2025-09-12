@@ -1248,7 +1248,9 @@
         </ul>
         <a onclick="scrollToSection('contact'); closeMobileMenu();" class="cta-btn" style="margin-top: 2rem;">Request A Quote</a>
         
-      
+        <div class="logo">
+            <img src="images/privateplates/privateolateslogowhite.png" alt="Private Plates Logo">
+        </div>
     
     </div>
 
@@ -1689,7 +1691,7 @@
                     "Crafted for Your Taste."
                 </div>
                 <div class="footer-logo">
-                     <img src="images/privateplates/Private_Plates-removebg-preview.png" alt="Private Plates Logo">
+                    <img src="images/privateplates/priveteplateslogoblue.png" alt="Private Plates Logo">
                 </div>
             </div>
             <div class="footer-contact">
@@ -1879,8 +1881,154 @@ const galleryImages = [
             }
         });
 
+     // localStorage'dan verileri yükleme
+document.addEventListener('DOMContentLoaded', function() {
+    // Hero section verileri
+    const heroData = JSON.parse(localStorage.getItem('privatePlates_hero'));
+    if (heroData) {
+        const heroTitle = document.querySelector('.hero-title');
+        if (heroTitle) {
+            heroTitle.innerHTML = `<span style="font-family: 'Futura', sans-serif;">${heroData.title1}</span> 
+                                  <span class="accent">${heroData.title2}</span>`;
+        }
+        
+        const heroText = document.querySelector('.hero-text');
+        if (heroText) heroText.textContent = heroData.subtitle;
+        
+        const heroBtn1 = document.querySelector('.btn-primary');
+        if (heroBtn1) heroBtn1.textContent = heroData.btn1;
+        
+        const heroBtn2 = document.querySelector('.btn-secondary');
+        if (heroBtn2) heroBtn2.textContent = heroData.btn2;
+        
+        const heroBtn3 = document.querySelector('.btn-third');
+        if (heroBtn3) {
+            heroBtn3.textContent = heroData.btn3;
+            heroBtn3.href = heroData.btn3Link;
+        }
+    }
+    
+    // Process steps verileri
+    const processData = JSON.parse(localStorage.getItem('privatePlates_process'));
+    if (processData) {
+        const stepElements = document.querySelectorAll('.process-step');
+        stepElements.forEach((step, index) => {
+            const stepNum = index + 1;
+            if (processData[stepNum]) {
+                const stepText = step.querySelector('.step-text');
+                if (stepText) stepText.textContent = processData[stepNum];
+            }
+        });
+    }
+    
+    // Events verileri
+    const eventsData = JSON.parse(localStorage.getItem('privatePlates_events'));
+    if (eventsData) {
+        const eventElements = document.querySelectorAll('.event-card');
+        const eventTypes = ['corporate', 'weddings', 'private', 'mealprep'];
+        
+        eventElements.forEach((event, index) => {
+            if (index < eventTypes.length && eventsData[eventTypes[index]]) {
+                const eventText = event.querySelector('.event-text');
+                if (eventText) eventText.textContent = eventsData[eventTypes[index]];
+            }
+        });
+    }
+    
+    // About section verileri
+    const aboutData = JSON.parse(localStorage.getItem('privatePlates_about'));
+    if (aboutData) {
+        const aboutText1 = document.querySelector('.about-text p:nth-child(2)');
+        if (aboutText1 && aboutData.text1) aboutText1.textContent = aboutData.text1;
+        
+        const aboutText2 = document.querySelector('.about-text p:nth-child(3)');
+        if (aboutText2 && aboutData.text2) aboutText2.textContent = aboutData.text2;
+        
+        const aboutText3 = document.querySelector('.about-text p:nth-child(4)');
+        if (aboutText3 && aboutData.text3) aboutText3.textContent = aboutData.text3;
+    }
+    
+   // Testimonials verilerini yükleme - GÜNCELLENMİŞ VERSİYON
+const testimonialsData = JSON.parse(localStorage.getItem('privatePlates_testimonials'));
+if (testimonialsData) {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const testimonialContainer = document.querySelector('.testimonials-grid');
+    
+    // Önce mevcut testimonial kartlarını temizle (ilk 3'ü korumak için dikkatli olalım)
+    // testimonialContainer.innerHTML = '';
+    
+    // Tüm testimonial'ları işle
+    let index = 0;
+    for (const key in testimonialsData) {
+        if (testimonialsData.hasOwnProperty(key)) {
+            const testimonial = testimonialsData[key];
+            
+            // Mevcut kartları güncelle veya yeni kartlar oluştur
+            if (testimonialCards[index]) {
+                // Mevcut kartı güncelle
+                const testimonialText = testimonialCards[index].querySelector('.testimonial-text');
+                if (testimonialText) testimonialText.textContent = testimonial.text;
+                
+                const authorName = testimonialCards[index].querySelector('.author-info h4');
+                if (authorName) authorName.textContent = testimonial.name;
+                
+                const authorTitle = testimonialCards[index].querySelector('.author-info p');
+                if (authorTitle) authorTitle.textContent = testimonial.title;
+            } else {
+                // Yeni kart oluştur
+                const newCard = document.createElement('div');
+                newCard.className = 'testimonial-card animate-on-scroll';
+                newCard.innerHTML = `
+                    <p class="testimonial-text">${testimonial.text}</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>${testimonial.name}</h4>
+                            <p>${testimonial.title}</p>
+                        </div>
+                    </div>
+                `;
+                testimonialContainer.appendChild(newCard);
+            }
+            index++;
+        }
+    }
+    
+    // Animasyonları tekrar başlat
+    setTimeout(() => {
+        animateOnScroll();
+    }, 100);
+}
+    // Contact verileri
+    const contactData = JSON.parse(localStorage.getItem('privatePlates_contact'));
+    if (contactData) {
+        const phoneLink = document.querySelector('.contact-info a[href^="tel:"]');
+        if (phoneLink) {
+            phoneLink.textContent = contactData.phone;
+            phoneLink.href = `tel:${contactData.phone}`;
+        }
+        
+        const emailLink = document.querySelector('.contact-info a[href^="mailto:"]');
+        if (emailLink) {
+            emailLink.textContent = contactData.email;
+            emailLink.href = `mailto:${contactData.email}`;
+        }
+        
+        const locationText = document.querySelector('.contact-info p');
+        if (locationText) locationText.textContent = contactData.location;
+        
+        const instagramLink = document.querySelector('.social-link[href*="instagram"]');
+        if (instagramLink) instagramLink.href = contactData.instagram;
+    }
+    
+    // Footer verileri
+    const footerData = JSON.parse(localStorage.getItem('privatePlates_footer'));
+    if (footerData) {
+        const footerSlogan = document.querySelector('.footer-slogan');
+        if (footerSlogan) footerSlogan.textContent = `"${footerData.slogan}"`;
         
         
+    }
+});
         
     </script>
 </body>
