@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Plates - Admin Panel</title>
+    <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy-primary: #001064;
+            --gold-accent: #A47B00;
+            --white-pure: #FFFFFF;
+            --gray-dark: #2E2E2E;
+            --gray-light: #f8f9fa;
+            --gray-border: #e0e0e0;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --font-primary: 'Futura PT', 'Futura', 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: #f5f7f9;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--navy-primary);
+            color: var(--white-pure);
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-header h2 i {
+            color: var(--gold-accent);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--white-pure);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            gap: 10px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--gold-accent);
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--gray-border);
+            margin-bottom: 30px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--navy-primary);
+            color: var(--white-pure);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--navy-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--white-pure);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--gray-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--navy-primary);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--navy-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--gray-border);
+            border-radius: 4px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--navy-primary);
+            color: var(--white-pure);
+        }
+
+        .btn-primary:hover {
+            background-color: #000c4d;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: var(--white-pure);
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger);
+            color: var(--white-pure);
+        }
+
+        .btn-danger:hover {
+            background-color: #bd2130;
+        }
+
+        /* Hero Section Editor */
+        .hero-preview {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px dashed var(--gray-border);
+        }
+
+        /* Process Steps Editor */
+        .process-editor .process-step {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* Testimonials Editor */
+        .testimonial-item {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--gray-border);
+        }
+
+        .add-testimonial {
+            margin-top: 20px;
+        }
+
+        /* Events Editor */
+        .event-editor .event-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid var(--gray-border);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Login Page */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f7f9;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 400px;
+            background-color: var(--white-pure);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            color: var(--navy-primary);
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                overflow: visible;
+            }
+            
+            .sidebar-header h2 span, .nav-link span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+            
+            .sidebar:hover {
+                width: 250px;
+                z-index: 1000;
+            }
+            
+            .sidebar:hover .sidebar-header h2 span,
+            .sidebar:hover .nav-link span {
+                display: inline;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+            
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            
+            .sidebar.open {
+                width: 250px;
+                z-index: 1000;
+            }
+            
+            .mobile-toggle {
+                display: block;
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                z-index: 1001;
+                background-color: var(--navy-primary);
+                color: var(--white-pure);
+                border: none;
+                border-radius: 4px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page (shown by default) -->
+    <div id="loginPage" class="login-container">
+        <div class="login-form">
+            <div class="login-header">
+                <h2>Private Plates Admin</h2>
+                <p>Sign in to access the control panel</p>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password">
+            </div>
+            <button id="loginBtn" class="btn btn-primary" style="width: 100%;">Login</button>
+            <div id="loginAlert" class="alert alert-error">Invalid credentials. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Admin Panel (hidden until login) -->
+    <div id="adminPanel" class="admin-container" style="display: none;">
+        <button class="mobile-toggle" style="display: none;" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <!-- Sidebar Navigation -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-utensils"></i> <span>Private Plates</span></h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-section="hero">
+                        <i class="fas fa-home"></i> <span>Hero Section</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="process">
+                        <i class="fas fa-list-ol"></i> <span>Process Steps</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="events">
+                        <i class="fas fa-calendar-alt"></i> <span>Events</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="about">
+                        <i class="fas fa-info-circle"></i> <span>About Section</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="testimonials">
+                        <i class="fas fa-quote-left"></i> <span>Testimonials</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="contact">
+                        <i class="fas fa-envelope"></i> <span>Contact Info</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="footer">
+                        <i class="fas fa-shoe-prints"></i> <span>Footer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Control Panel</h1>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <span>Admin</span>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alert for save status -->
+            <div id="saveAlert" class="alert alert-success">Changes saved successfully!</div>
+
+            <!-- Hero Section Editor -->
+            <div id="heroSection" class="content-section active">
+                <div class="section-header">
+                    <h2 class="section-title">Hero Section</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Main Title (Line 1)</label>
+                    <input type="text" class="form-control" id="heroTitle1" value="Crafted for">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Main Title (Line 2 - Accent)</label>
+                    <input type="text" class="form-control" id="heroTitle2" value="Your Taste.">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Subtitle Text</label>
+                    <input type="text" class="form-control" id="heroSubtitle" value="Custom weekly meal prep & chef experiences.">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Button Text</label>
+                    <input type="text" class="form-control" id="heroBtn1" value="Book A Call">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Secondary Button Text</label>
+                    <input type="text" class="form-control" id="heroBtn2" value="Send Inquiry">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Third Button Text</label>
+                    <input type="text" class="form-control" id="heroBtn3" value="WEEKLY MEAL PREP MENU">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Third Button Link</label>
+                    <input type="text" class="form-control" id="heroBtn3Link" value="https://www.canva.com/design/DAGyKcyIUgM/5noK1YfGRfwlh8aVhWW7iQ/view">
+                </div>
+                <button class="btn btn-primary" onclick="saveHero()">Save Changes</button>
+                <button class="btn btn-danger" onclick="resetHero()" style="margin-left: 10px;">Reset to Default</button>
+                
+                <div class="hero-preview">
+                    <h3>Preview:</h3>
+                    <h2 style="font-size: 2rem; margin: 10px 0;"><span id="previewTitle1">Crafted for</span> <span style="color: #A47B00;" id="previewTitle2">Your Taste.</span></h2>
+                    <p id="previewSubtitle">Custom weekly meal prep & chef experiences.</p>
+                    <div style="display: flex; gap: 10px; margin-top: 15px;">
+                        <button style="background: #A47B00; color: white; border: none; padding: 10px 15px; border-radius: 20px;" id="previewBtn1">Book A Call</button>
+                        <button style="background: #001064; color: white; border: none; padding: 10px 15px; border-radius: 20px;" id="previewBtn2">Send Inquiry</button>
+                        <button style="border: 2px solid #001064; color: #001064; background: transparent; padding: 10px 15px; border-radius: 20px;" id="previewBtn3">WEEKLY MEAL PREP MENU</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Steps Editor -->
+            <div id="processSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Process Steps</h2>
+                </div>
+                <div class="process-editor">
+                    <div class="process-step">
+                        <div class="step-header">
+                            <h3>Step 1: CONSULTATION</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Step Description</label>
+                            <textarea class="form-control process-desc" data-step="1">We take time to understand your unique preferences, event style, dietary needs, and culinary desires to create a truly personalized dining experience.</textarea>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <h3>Step 2: MENU CREATION</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Step Description</label>
+                            <textarea class="form-control process-desc" data-step="2">Each menu is bespoke and seasonally inspired, crafted with precision to match your vision and preferences perfectly.</textarea>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <h3>Step 3: EXECUTION</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Step Description</label>
+                            <textarea class="form-control process-desc" data-step="3">Our team arrives early, sets up kitchen professionally, and handles everything with meticulous attention to detail.</textarea>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-header">
+                            <h3>Step 4: SERVICE</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Step Description</label>
+                            <textarea class="form-control process-desc" data-step="4">Each course is introduced personally by the chef, creating a memorable experience, and we leave your kitchen spotless.</textarea>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveProcess()">Save Process Steps</button>
+                <button class="btn btn-danger" onclick="resetProcess()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+
+            <!-- Events Editor -->
+            <div id="eventsSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Events We Cater</h2>
+                </div>
+                <div class="event-editor">
+                    <div class="event-card">
+                        <div class="step-header">
+                            <h3>Corporate Events</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Event Description</label>
+                            <textarea class="form-control event-desc" data-event="corporate">Lunches, retreats, executive dinners, and office catering for businesses of all sizes.</textarea>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="step-header">
+                            <h3>Weddings & Celebrations</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Event Description</label>
+                            <textarea class="form-control event-desc" data-event="weddings">From intimate ceremonies to grand receptions, we create memorable dining experiences.</textarea>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="step-header">
+                            <h3>Private Dinner Parties</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Event Description</label>
+                            <textarea class="form-control event-desc" data-event="private">Host unforgettable gatherings in the comfort of your home with our in-home chef services.</textarea>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="step-header">
+                            <h3>Weekly Meal Prep</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Event Description</label>
+                            <textarea class="form-control event-desc" data-event="mealprep">Tastes and dietary restrictions. Prepared fresh as per your convenience.</textarea>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveEvents()">Save Events</button>
+                <button class="btn btn-danger" onclick="resetEvents()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+
+            <!-- About Section Editor -->
+            <div id="aboutSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">About Section</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Text (Paragraph 1)</label>
+                    <textarea class="form-control" id="aboutText1">Private Plates began in Toronto, where Chef AJ honed his craft cooking for private families, intimate dinner parties, and large celebrations. Over time, the service grew beyond one-off events into ongoing weekly meal prep for busy households — a model that proved to be both impactful and sustainable.</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Text (Paragraph 2)</label>
+                    <textarea class="form-control" id="aboutText2">After relocating to Vancouver, Private Plates expanded into the Lower Mainland, now catering to families, professionals, and corporate clients across the region. While meal prep remains our specialty, we've also brought our expertise to weddings, milestone events, and in-home chef experiences, blending global flavors with local ingredients.</textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About Text (Paragraph 3)</label>
+                    <textarea class="form-control" id="aboutText3">Chef AJ's background includes training in Michelin kitchens, collaborations with celebrity chefs around the world, cooking for diplomats, and competing on Top Chef Canada. Today, with Private Plates, he brings that same level of care and creativity into everyday dining — making it possible for clients to enjoy restaurant-quality meals, tailored to their tastes, delivered fresh twice week.</textarea>
+                </div>
+                <button class="btn btn-primary" onclick="saveAbout()">Save About Section</button>
+                <button class="btn btn-danger" onclick="resetAbout()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+
+            <!-- Testimonials Editor -->
+            <div id="testimonialsSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Testimonials</h2>
+                    <button class="btn btn-success" onclick="addTestimonial()">Add Testimonial</button>
+                </div>
+                <div class="testimonials-editor" id="testimonialsContainer">
+                    <div class="testimonial-item" data-id="1">
+                        <div class="step-header">
+                            <h3>Testimonial #1</h3>
+                            <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Testimonial Text</label>
+                            <textarea class="form-control testimonial-text" data-testimonial="1">Chef AJ transformed our anniversary dinner into an unforgettable experience. The personalized menu was exquisite, and his attention to detail was remarkable. We felt like we were at a Michelin-star restaurant right in our own home.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" class="form-control testimonial-name" data-testimonial="1" value="Sarah Johnson">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Title</label>
+                            <input type="text" class="form-control testimonial-title" data-testimonial="1" value="Private Dinner Client">
+                        </div>
+                    </div>
+                    <div class="testimonial-item" data-id="2">
+                        <div class="step-header">
+                            <h3>Testimonial #2</h3>
+                            <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Testimonial Text</label>
+                            <textarea class="form-control testimonial-text" data-testimonial="2">The weekly meal prep service has been a game-changer for our busy family. Chef AJ's creative dishes are not only delicious but also healthy. It's like having a personal chef without the hassle!</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" class="form-control testimonial-name" data-testimonial="2" value="Michael Chen">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Title</label>
+                            <input type="text" class="form-control testimonial-title" data-testimonial="2" value="Weekly Meal Prep Client">
+                        </div>
+                    </div>
+                    <div class="testimonial-item" data-id="3">
+                        <div class="step-header">
+                            <h3>Testimonial #3</h3>
+                            <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Testimonial Text</label>
+                            <textarea class="form-control testimonial-text" data-testimonial="3">We hired Private Plates for our corporate retreat, and it was the highlight of our event. The food was exceptional, and the service was impeccable. Our team is still talking about it weeks later.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" class="form-control testimonial-name" data-testimonial="3" value="Jennifer Lee">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Title</label>
+                            <input type="text" class="form-control testimonial-title" data-testimonial="3" value="Corporate Client">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveTestimonials()">Save Testimonials</button>
+                <button class="btn btn-danger" onclick="resetTestimonials()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+
+            <!-- Contact Info Editor -->
+            <div id="contactSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Contact Information</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" id="contactPhone" value="(647) 907-4993">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="contactEmail" value="privateplatesfood@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" id="contactLocation" value="Burnaby, BC">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Instagram URL</label>
+                    <input type="text" class="form-control" id="contactInstagram" value="https://www.instagram.com/privateplatesfood/">
+                </div>
+                <button class="btn btn-primary" onclick="saveContact()">Save Contact Info</button>
+                <button class="btn btn-danger" onclick="resetContact()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+
+            <!-- Footer Editor -->
+            <div id="footerSection" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Footer Content</h2>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Slogan Text</label>
+                    <input type="text" class="form-control" id="footerSlogan" value="Crafted for Your Taste.">
+                </div>
+                
+                <button class="btn btn-primary" onclick="saveFooter()">Save Footer Content</button>
+                <button class="btn btn-danger" onclick="resetFooter()" style="margin-left: 10px;">Reset to Default</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple authentication
+        const ADMIN_USERNAME = "Akshay.Jaura";
+        const ADMIN_PASSWORD = "ip8ri?Lbni29f.N";
+        
+        // Default values for reset functionality
+        const defaultValues = {
+            hero: {
+                title1: "Crafted for",
+                title2: "Your Taste.",
+                subtitle: "Custom weekly meal prep & chef experiences.",
+                btn1: "Book A Call",
+                btn2: "Send Inquiry",
+                btn3: "WEEKLY MEAL PREP MENU",
+                btn3Link: "https://www.canva.com/design/DAGyKcyIUgM/5noK1YfGRfwlh8aVhWW7iQ/view"
+            },
+            process: {
+                1: "We take time to understand your unique preferences, event style, dietary needs, and culinary desires to create a truly personalized dining experience.",
+                2: "Each menu is bespoke and seasonally inspired, crafted with precision to match your vision and preferences perfectly.",
+                3: "Our team arrives early, sets up kitchen professionally, and handles everything with meticulous attention to detail.",
+                4: "Each course is introduced personally by the chef, creating a memorable experience, and we leave your kitchen spotless."
+            },
+            events: {
+                corporate: "Lunches, retreats, executive dinners, and office catering for businesses of all sizes.",
+                weddings: "From intimate ceremonies to grand receptions, we create memorable dining experiences.",
+                private: "Host unforgettable gatherings in the comfort of your home with our in-home chef services.",
+                mealprep: "Tastes and dietary restrictions. Prepared fresh as per your convenience."
+            },
+            about: {
+                text1: "Private Plates began in Toronto, where Chef AJ honed his craft cooking for private families, intimate dinner parties, and large celebrations. Over time, the service grew beyond one-off events into ongoing weekly meal prep for busy households — a model that proved to be both impactful and sustainable.",
+                text2: "After relocating to Vancouver, Private Plates expanded into the Lower Mainland, now catering to families, professionals, and corporate clients across the region. While meal prep remains our specialty, we've also brought our expertise to weddings, milestone events, and in-home chef experiences, blending global flavors with local ingredients.",
+                text3: "Chef AJ's background includes training in Michelin kitchens, collaborations with celebrity chefs around the world, cooking for diplomats, and competing on Top Chef Canada. Today, with Private Plates, he brings that same level of care and creativity into everyday dining — making it possible for clients to enjoy restaurant-quality meals, tailored to their tastes, delivered fresh twice week."
+            },
+            testimonials: {
+                1: {
+                    text: "Chef AJ transformed our anniversary dinner into an unforgettable experience. The personalized menu was exquisite, and his attention to detail was remarkable. We felt like we were at a Michelin-star restaurant right in our own home.",
+                    name: "Sarah Johnson",
+                    title: "Private Dinner Client"
+                },
+                2: {
+                    text: "The weekly meal prep service has been a game-changer for our busy family. Chef AJ's creative dishes are not only delicious but also healthy. It's like having a personal chef without the hassle!",
+                    name: "Michael Chen",
+                    title: "Weekly Meal Prep Client"
+                },
+                3: {
+                    text: "We hired Private Plates for our corporate retreat, and it was the highlight of our event. The food was exceptional, and the service was impeccable. Our team is still talking about it weeks later.",
+                    name: "Jennifer Lee",
+                    title: "Corporate Client"
+                }
+            },
+            contact: {
+                phone: "(647) 907-4993",
+                email: "privateplatesfood@gmail.com",
+                location: "Burnaby, BC",
+                instagram: "https://www.instagram.com/privateplatesfood/"
+            },
+            footer: {
+                slogan: "Crafted for Your Taste.",
+                copyright: "© 2025 Big Spark Media",
+                copyrightLink: "https://www.bigsparkmedia.ca"
+            }
+        };
+        
+        // Load saved data if exists
+        function loadSavedData() {
+            // Hero Section
+            const heroData = JSON.parse(localStorage.getItem('privatePlates_hero')) || defaultValues.hero;
+            document.getElementById('heroTitle1').value = heroData.title1;
+            document.getElementById('heroTitle2').value = heroData.title2;
+            document.getElementById('heroSubtitle').value = heroData.subtitle;
+            document.getElementById('heroBtn1').value = heroData.btn1;
+            document.getElementById('heroBtn2').value = heroData.btn2;
+            document.getElementById('heroBtn3').value = heroData.btn3;
+            document.getElementById('heroBtn3Link').value = heroData.btn3Link;
+            updateHeroPreview();
+            
+            // Process Steps
+            const processData = JSON.parse(localStorage.getItem('privatePlates_process')) || defaultValues.process;
+            document.querySelectorAll('.process-desc').forEach(textarea => {
+                const step = textarea.getAttribute('data-step');
+                textarea.value = processData[step] || "";
+            });
+            
+            // Events
+            const eventsData = JSON.parse(localStorage.getItem('privatePlates_events')) || defaultValues.events;
+            document.querySelectorAll('.event-desc').forEach(textarea => {
+                const event = textarea.getAttribute('data-event');
+                textarea.value = eventsData[event] || "";
+            });
+            
+            // About Section
+            const aboutData = JSON.parse(localStorage.getItem('privatePlates_about')) || defaultValues.about;
+            document.getElementById('aboutText1').value = aboutData.text1 || "";
+            document.getElementById('aboutText2').value = aboutData.text2 || "";
+            document.getElementById('aboutText3').value = aboutData.text3 || "";
+            
+            // Testimonials
+            const testimonialsData = JSON.parse(localStorage.getItem('privatePlates_testimonials')) || defaultValues.testimonials;
+            const testimonialsContainer = document.getElementById('testimonialsContainer');
+            testimonialsContainer.innerHTML = '';
+            
+            let testimonialCount = 1;
+            for (const key in testimonialsData) {
+                if (testimonialsData.hasOwnProperty(key)) {
+                    const testimonial = testimonialsData[key];
+                    const testimonialHTML = `
+                        <div class="testimonial-item" data-id="${testimonialCount}">
+                            <div class="step-header">
+                                <h3>Testimonial #${testimonialCount}</h3>
+                                <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Testimonial Text</label>
+                                <textarea class="form-control testimonial-text" data-testimonial="${testimonialCount}">${testimonial.text}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Client Name</label>
+                                <input type="text" class="form-control testimonial-name" data-testimonial="${testimonialCount}" value="${testimonial.name}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Client Title</label>
+                                <input type="text" class="form-control testimonial-title" data-testimonial="${testimonialCount}" value="${testimonial.title}">
+                            </div>
+                        </div>
+                    `;
+                    testimonialsContainer.innerHTML += testimonialHTML;
+                    testimonialCount++;
+                }
+            }
+            
+            // Contact
+            const contactData = JSON.parse(localStorage.getItem('privatePlates_contact')) || defaultValues.contact;
+            document.getElementById('contactPhone').value = contactData.phone || "";
+            document.getElementById('contactEmail').value = contactData.email || "";
+            document.getElementById('contactLocation').value = contactData.location || "";
+            document.getElementById('contactInstagram').value = contactData.instagram || "";
+            
+            // Footer
+            const footerData = JSON.parse(localStorage.getItem('privatePlates_footer')) || defaultValues.footer;
+            document.getElementById('footerSlogan').value = footerData.slogan || "";
+            document.getElementById('footerCopyright').value = footerData.copyright || "";
+            document.getElementById('footerCopyrightLink').value = footerData.copyrightLink || "";
+        }
+        
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'flex';
+                loadSavedData();
+            } else {
+                document.getElementById('loginAlert').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('loginAlert').style.display = 'none';
+                }, 3000);
+            }
+        });
+        
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                navLinks.forEach(l => l.classList.remove('active'));
+                contentSections.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const sectionId = this.getAttribute('data-section') + 'Section';
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+        
+        // Hero section preview update
+        function updateHeroPreview() {
+            document.getElementById('previewTitle1').textContent = document.getElementById('heroTitle1').value;
+            document.getElementById('previewTitle2').textContent = document.getElementById('heroTitle2').value;
+            document.getElementById('previewSubtitle').textContent = document.getElementById('heroSubtitle').value;
+            document.getElementById('previewBtn1').textContent = document.getElementById('heroBtn1').value;
+            document.getElementById('previewBtn2').textContent = document.getElementById('heroBtn2').value;
+            document.getElementById('previewBtn3').textContent = document.getElementById('heroBtn3').value;
+        }
+        
+        // Add event listeners to hero form fields
+        const heroFields = ['heroTitle1', 'heroTitle2', 'heroSubtitle', 'heroBtn1', 'heroBtn2', 'heroBtn3'];
+        heroFields.forEach(field => {
+            document.getElementById(field).addEventListener('input', updateHeroPreview);
+        });
+        
+        // Save functions
+        function saveHero() {
+            const heroData = {
+                title1: document.getElementById('heroTitle1').value,
+                title2: document.getElementById('heroTitle2').value,
+                subtitle: document.getElementById('heroSubtitle').value,
+                btn1: document.getElementById('heroBtn1').value,
+                btn2: document.getElementById('heroBtn2').value,
+                btn3: document.getElementById('heroBtn3').value,
+                btn3Link: document.getElementById('heroBtn3Link').value
+            };
+            
+            localStorage.setItem('privatePlates_hero', JSON.stringify(heroData));
+            showSaveAlert();
+        }
+        
+        function saveProcess() {
+            const processData = {};
+            document.querySelectorAll('.process-desc').forEach(textarea => {
+                const step = textarea.getAttribute('data-step');
+                processData[step] = textarea.value;
+            });
+            
+            localStorage.setItem('privatePlates_process', JSON.stringify(processData));
+            showSaveAlert();
+        }
+        
+        function saveEvents() {
+            const eventsData = {};
+            document.querySelectorAll('.event-desc').forEach(textarea => {
+                const event = textarea.getAttribute('data-event');
+                eventsData[event] = textarea.value;
+            });
+            
+            localStorage.setItem('privatePlates_events', JSON.stringify(eventsData));
+            showSaveAlert();
+        }
+        
+        function saveAbout() {
+            const aboutData = {
+                text1: document.getElementById('aboutText1').value,
+                text2: document.getElementById('aboutText2').value,
+                text3: document.getElementById('aboutText3').value
+            };
+            
+            localStorage.setItem('privatePlates_about', JSON.stringify(aboutData));
+            showSaveAlert();
+        }
+        
+        function saveTestimonials() {
+            const testimonialsData = {};
+            const testimonialItems = document.querySelectorAll('.testimonial-item');
+            
+            testimonialItems.forEach((item, index) => {
+                const id = index + 1;
+                const text = item.querySelector('.testimonial-text').value;
+                const name = item.querySelector('.testimonial-name').value;
+                const title = item.querySelector('.testimonial-title').value;
+                
+                testimonialsData[id] = {
+                    text: text,
+                    name: name,
+                    title: title
+                };
+            });
+            
+            localStorage.setItem('privatePlates_testimonials', JSON.stringify(testimonialsData));
+            showSaveAlert();
+        }
+        
+        function addTestimonial() {
+            const testimonialsContainer = document.getElementById('testimonialsContainer');
+            const testimonialCount = testimonialsContainer.querySelectorAll('.testimonial-item').length + 1;
+            
+            const testimonialHTML = `
+                <div class="testimonial-item" data-id="${testimonialCount}">
+                    <div class="step-header">
+                        <h3>Testimonial #${testimonialCount}</h3>
+                        <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Testimonial Text</label>
+                        <textarea class="form-control testimonial-text" data-testimonial="${testimonialCount}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Client Name</label>
+                        <input type="text" class="form-control testimonial-name" data-testimonial="${testimonialCount}" value="">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Client Title</label>
+                        <input type="text" class="form-control testimonial-title" data-testimonial="${testimonialCount}" value="">
+                    </div>
+                </div>
+            `;
+            
+            testimonialsContainer.innerHTML += testimonialHTML;
+        }
+        
+        function removeTestimonial(button) {
+            const testimonialItem = button.closest('.testimonial-item');
+            testimonialItem.remove();
+            
+            // Re-number the testimonials
+            const testimonialItems = document.querySelectorAll('.testimonial-item');
+            testimonialItems.forEach((item, index) => {
+                const newId = index + 1;
+                item.setAttribute('data-id', newId);
+                item.querySelector('.step-header h3').textContent = `Testimonial #${newId}`;
+                
+                const textarea = item.querySelector('.testimonial-text');
+                textarea.setAttribute('data-testimonial', newId);
+                
+                const nameInput = item.querySelector('.testimonial-name');
+                nameInput.setAttribute('data-testimonial', newId);
+                
+                const titleInput = item.querySelector('.testimonial-title');
+                titleInput.setAttribute('data-testimonial', newId);
+            });
+        }
+        
+        function saveContact() {
+            const contactData = {
+                phone: document.getElementById('contactPhone').value,
+                email: document.getElementById('contactEmail').value,
+                location: document.getElementById('contactLocation').value,
+                instagram: document.getElementById('contactInstagram').value
+            };
+            
+            localStorage.setItem('privatePlates_contact', JSON.stringify(contactData));
+            showSaveAlert();
+        }
+        
+        function saveFooter() {
+            const footerData = {
+                slogan: document.getElementById('footerSlogan').value,
+                copyright: document.getElementById('footerCopyright').value,
+                copyrightLink: document.getElementById('footerCopyrightLink').value
+            };
+            
+            localStorage.setItem('privatePlates_footer', JSON.stringify(footerData));
+            showSaveAlert();
+        }
+        
+        // Reset functions
+        function resetHero() {
+            document.getElementById('heroTitle1').value = defaultValues.hero.title1;
+            document.getElementById('heroTitle2').value = defaultValues.hero.title2;
+            document.getElementById('heroSubtitle').value = defaultValues.hero.subtitle;
+            document.getElementById('heroBtn1').value = defaultValues.hero.btn1;
+            document.getElementById('heroBtn2').value = defaultValues.hero.btn2;
+            document.getElementById('heroBtn3').value = defaultValues.hero.btn3;
+            document.getElementById('heroBtn3Link').value = defaultValues.hero.btn3Link;
+            updateHeroPreview();
+            localStorage.removeItem('privatePlates_hero');
+        }
+        
+        function resetProcess() {
+            document.querySelectorAll('.process-desc').forEach(textarea => {
+                const step = textarea.getAttribute('data-step');
+                textarea.value = defaultValues.process[step];
+            });
+            localStorage.removeItem('privatePlates_process');
+        }
+        
+        function resetEvents() {
+            document.querySelectorAll('.event-desc').forEach(textarea => {
+                const event = textarea.getAttribute('data-event');
+                textarea.value = defaultValues.events[event];
+            });
+            localStorage.removeItem('privatePlates_events');
+        }
+        
+        function resetAbout() {
+            document.getElementById('aboutText1').value = defaultValues.about.text1;
+            document.getElementById('aboutText2').value = defaultValues.about.text2;
+            document.getElementById('aboutText3').value = defaultValues.about.text3;
+            localStorage.removeItem('privatePlates_about');
+        }
+        
+        function resetTestimonials() {
+            const testimonialsContainer = document.getElementById('testimonialsContainer');
+            testimonialsContainer.innerHTML = '';
+            
+            for (let i = 1; i <= 3; i++) {
+                const testimonial = defaultValues.testimonials[i];
+                const testimonialHTML = `
+                    <div class="testimonial-item" data-id="${i}">
+                        <div class="step-header">
+                            <h3>Testimonial #${i}</h3>
+                            <button class="btn btn-danger" onclick="removeTestimonial(this)">Remove</button>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Testimonial Text</label>
+                            <textarea class="form-control testimonial-text" data-testimonial="${i}">${testimonial.text}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Name</label>
+                            <input type="text" class="form-control testimonial-name" data-testimonial="${i}" value="${testimonial.name}">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Client Title</label>
+                            <input type="text" class="form-control testimonial-title" data-testimonial="${i}" value="${testimonial.title}">
+                        </div>
+                    </div>
+                `;
+                testimonialsContainer.innerHTML += testimonialHTML;
+            }
+            
+            localStorage.removeItem('privatePlates_testimonials');
+        }
+        
+        function resetContact() {
+            document.getElementById('contactPhone').value = defaultValues.contact.phone;
+            document.getElementById('contactEmail').value = defaultValues.contact.email;
+            document.getElementById('contactLocation').value = defaultValues.contact.location;
+            document.getElementById('contactInstagram').value = defaultValues.contact.instagram;
+            localStorage.removeItem('privatePlates_contact');
+        }
+        
+        function resetFooter() {
+            document.getElementById('footerSlogan').value = defaultValues.footer.slogan;
+            document.getElementById('footerCopyright').value = defaultValues.footer.copyright;
+            document.getElementById('footerCopyrightLink').value = defaultValues.footer.copyrightLink;
+            localStorage.removeItem('privatePlates_footer');
+        }
+        
+        function showSaveAlert() {
+            const alert = document.getElementById('saveAlert');
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+        
+        function logout() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            // Clear form fields
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        // Responsive sidebar toggle
+        function checkWidth() {
+            if (window.innerWidth <= 576) {
+                document.querySelector('.mobile-toggle').style.display = 'block';
+                document.getElementById('sidebar').classList.remove('open');
+            } else {
+                document.querySelector('.mobile-toggle').style.display = 'none';
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+        
+        window.addEventListener('resize', checkWidth);
+        checkWidth(); // Initial check
+    </script>
+</body>
+</html>
