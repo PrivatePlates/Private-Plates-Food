@@ -17,8 +17,9 @@
             --white-pure: #FFFFFF;
             --gray-dark: #2E2E2E;
             --gray-light: #f8f9fa;
+
             --font-primary: 'Futura PT', 'Futura', 'Inter', sans-serif;
-            --font-serif: 'Playfair Display', serif;
+    --font-serif: 'Playfair Display', serif; /* Bu değişmedi */
         }
 
         * {
@@ -109,16 +110,18 @@
         }
 
         .nav-links a:hover {
-            color: var(--gold-accent);
-            text-decoration: underline;
-            text-decoration-color: var(--gold-accent);
-            text-underline-offset: 4px;
-        }
+    color: var(--gold-accent);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-accent);
+    text-underline-offset: 4px; /* Çizgi ile metin arasındaki mesafe */
+}
+
 
         .cta-btn {
             border: 2px solid  #A47B00;
             color: #A47B00;
             padding: 8px 24px;
+            
             border-radius: 24px;
             font-weight: 500;
             text-decoration: none;
@@ -133,7 +136,7 @@
             transform: scale(1.05);
         }
 
-        /* Mobile Menu Button */
+        /* Mobile Menu Button - Sağ tarafta olacak şekilde güncellendi */
         .mobile-menu-btn {
             display: none;
             flex-direction: column;
@@ -159,7 +162,7 @@
             transition: all 0.3s linear;
         }
 
-        /* Mobile Menu */
+        /* Mobile Menu - Sağ taraftan açılacak şekilde güncellendi */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -172,7 +175,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            z-index: 1002;
+            z-index: 1002; /* Z-index değerini artırdık */
             transition: right 0.3s ease-in-out;
             padding-top: 10px;
         }
@@ -194,17 +197,18 @@
         }
 
         .mobile-nav-links a {
-            color: var(--white-pure);
-            text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            cursor: pointer;
-            display: block;
-            padding: 8px 0;
-            margin: 0;
-            line-height: 1.2;
-        }
+    color: var(--white-pure);
+    text-decoration: none;
+    font-size: 1.1rem; /* Yazı boyutunu küçültebilirsiniz */
+    font-weight: 500;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    display: block;
+    padding: 8px 0; /* Dikey padding'i azaltın */
+    
+    margin: 0; /* Varsayılan margin'i sıfırlayın */
+    line-height: 1.2; /* Satır yüksekliğini azaltın */
+}
 
         .mobile-nav-links a:hover {
             color: var(--gold-accent);
@@ -219,7 +223,7 @@
             color: var(--white-pure);
             font-size: 2rem;
             cursor: pointer;
-            z-index: 1003;
+            z-index: 1003; /* Kapama butonunun z-index'ini artırdık */
         }
 
         .mobile-header {
@@ -228,7 +232,7 @@
             gap: 16px;
         }
 
-        /* Mobile menu açıkken body'yi kilitleme */
+        /* Mobile menu açıkken body'yi kilitleme - overlay'i kaldırdık */
         body.menu-open {
             overflow: hidden;
         }
@@ -240,6 +244,7 @@
             align-items: center;
             background-color: var(--white-pure);
             position: relative;
+            
         }
 
         .hero-bg {
@@ -267,6 +272,7 @@
             z-index: 10;
             max-width: 900px;
             margin-left: 200px;
+            
         }
 
         .hero-title {
@@ -334,6 +340,7 @@
         }
 
         .btn-third {
+            
             border: 2px solid var(--navy-primary);
             color: #001064;
             padding: 16px 32px;
@@ -350,6 +357,9 @@
             color: #001064;
             transform: scale(1.05);
         }
+
+        
+
 
         /* Process Section */
         .process {
@@ -513,6 +523,7 @@
             align-items: center;
             margin-left:100px;
             margin-right:100px;
+
         }
 
         .about-text p {
@@ -617,6 +628,7 @@
         }
 
         .testimonial-text::before {
+            
             font-size: 3rem;
             color: var(--gold-accent);
             position: absolute;
@@ -631,7 +643,7 @@
         }
 
         .testimonial-avatar {
-            display: none;
+            display: none; /* Avatar'ı gizle */
         }
 
         .author-info h4 {
@@ -908,7 +920,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr  ;
             gap: 40px;
             align-items: center;
             max-width: 1200px;
@@ -1022,31 +1034,6 @@
             transform: translateY(0);
         }
 
-        /* Cache notification */
-        .cache-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--navy-primary);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 2000;
-            display: none;
-            max-width: 300px;
-        }
-        
-        .cache-notification button {
-            background: var(--gold-accent);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin-top: 10px;
-            cursor: pointer;
-        }
-
         /* Responsive */
         @media (max-width: 1024px) {
             .process-steps {
@@ -1067,9 +1054,11 @@
             }
 
             .about-content {
-                margin-left:50px;
-                margin-right:50px;
-            }
+            
+            margin-left:50px;
+            margin-right:50px;
+
+        }
         }
 
         @media (max-width: 900px) {
@@ -1078,9 +1067,11 @@
             }
 
             .about-content {
-                margin-left:50px;
-                margin-right:50px;
-            }
+            
+            margin-left:50px;
+            margin-right:50px;
+
+        }
         }
 
         @media (max-width: 768px) {
@@ -1089,9 +1080,11 @@
             }
 
             .about-content {
-                margin-left:10px;
-                margin-right:10px;
-            }
+            
+            margin-left:10px;
+            margin-right:10px;
+
+        }
 
             .cta-btn.desktop {
                 display: none;
@@ -1194,12 +1187,16 @@
                 padding: 15px;
                 margin-bottom: 30px;
                 color: #001064;
-                background-color: rgba(255, 255, 255, 0.60);
+                background-color: rgba(255, 255, 255, 0.60)
+                
+                
             }
             .about-content {
-                margin-left:50px;
-                margin-right:50px;
-            }
+            
+            margin-left:50px;
+            margin-right:50px;
+
+        }
         }
     </style>
 </head>
@@ -1229,19 +1226,18 @@
             </button>
             
         </div>
+
+        
     </nav>
 
-    <!-- Cache bildirimi -->
-    <div class="cache-notification" id="cacheNotification">
-        <p>Yeni güncellemeler mevcut. Sayfayı yenilemek ister misiniz?</p>
-        <button onclick="location.reload(true)">Sayfayı Yenile</button>
-    </div>
-
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu - Sağ taraftan açılacak -->
     <div class="mobile-menu" id="mobileMenu">
         <button class="close-menu" onclick="closeMobileMenu()">
             <i class="fas fa-times"></i>
         </button>
+
+        
+       
         
         <ul class="mobile-nav-links">
             <li><a onclick="scrollToSection('about'); closeMobileMenu();">ABOUT</a></li>
@@ -1251,6 +1247,9 @@
             <li><a onclick="scrollToSection('contact'); closeMobileMenu();">CONTACT</a></li>
         </ul>
         <a onclick="scrollToSection('contact'); closeMobileMenu();" class="cta-btn" style="margin-top: 2rem;">Request A Quote</a>
+        
+      
+    
     </div>
 
     <!-- Hero Section -->
@@ -1275,6 +1274,7 @@
                 </div>
             </div>
         </div>
+       
     </section>
 
     <!-- Process Section -->
@@ -1330,7 +1330,7 @@
                 </div>
 
                 <div class="event-card animate-on-scroll">
-                    <img src="https://images.unsplash.com/photo-1571397946750-99369f2a4e53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJchaHwxfHxwcml2YXRlJTIwZGlubmVyJTIwcGFydHl8ZW58MXx8fHwxNzU3MTQ3MzkxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="Private Dinner Parties">
+                    <img src="https://images.unsplash.com/photo-1571397946750-99369f2a4e53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJchaHwxfHxwcml2YXRlJTIwZGlubmVyJTIwcGFydHl8ZW58MXx8fHwxNzU7MTQ3MzkxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="Private Dinner Parties">
                     <div class="event-overlay">
                         <h3 class="event-title">Private Dinner Parties</h3>
                         <p class="event-text">Host unforgettable gatherings in the comfort of your home with our in-home chef services.</p>
@@ -1363,6 +1363,7 @@
                     <p>
                         Chef AJ's background includes training in Michelin kitchens, collaborations with celebrity chefs around the world, cooking for diplomats, and competing on Top Chef Canada. Today, with Private Plates, he brings that same level of care and creativity into everyday dining — making it possible for clients to enjoy restaurant-quality meals, tailored to their tastes, delivered fresh twice week.
                     </p>
+                   
                 </div>
                 <div class="about-images">
                     <div class="col-1">
@@ -1431,53 +1432,51 @@
                     </div>
                 </div>
                 
+                <h3 class="section-title font-serif" style="font-size: 2rem; margin-bottom: 40px;"></h3>
                 <!-- Gallery Section -->
-                <div class="gallery">
-                    <div class="gallery-grid">
-                        <div class="gallery-item" onclick="openLightbox(0)">
-                            <img src="images/privateplates/private plates food 01.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(1)">
-                            <img src="images/privateplates/private plates food 02.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(2)">
-                            <img src="images/privateplates/private plates food 03.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(3)">
-                            <img src="images/privateplates/private plates food 04.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(4)">
-                            <img src="images/privateplates/private plates food 05.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(5)">
-                            <img src="images/privateplates/private plates food 06.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(6)">
-                            <img src="images/privateplates/private plates food 07.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(7)">
-                            <img src="images/privateplates/private plates food 08.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(8)">
-                            <img src="images/privateplates/private plates food 09.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(9)">
-                            <img src="images/privateplates/private plates food 10.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(10)">
-                            <img src="images/privateplates/private plates food 11.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(11)">
-                            <img src="images/privateplates/private plates food 12.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(12)">
-                            <img src="images/privateplates/private plates food 13.jpg" alt="Private Plates Food">
-                        </div>
-                        <div class="gallery-item" onclick="openLightbox(13)">
-                            <img src="images/privateplates/private plates food 14.jpg" alt="Private Plates Food">
-                        </div>
-                    </div>
-                </div>
+                <!-- Gallery Section -->
+<div class="gallery">
+    <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(0)">
+            <img src="images/privateplates/private plates food 01.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(1)">
+            <img src="images/privateplates/private plates food 02.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(2)">
+            <img src="images/privateplates/private plates food 03.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(3)">
+            <img src="images/privateplates/private plates food 04.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(4)">
+            <img src="images/privateplates/private plates food 05.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(5)">
+            <img src="images/privateplates/private plates food 06.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(6)">
+            <img src="images/privateplates/private plates food 07.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(7)">
+            <img src="images/privateplates/private plates food 08.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(8)">
+            <img src="images/privateplates/private plates food 09.jpg" alt="Private Plates Food">
+        </div>
+        
+        
+        <div class="gallery-item" onclick="openLightbox(11)">
+            <img src="images/privateplates/private plates food 12.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(12)">
+            <img src="images/privateplates/private plates food 13.jpg" alt="Private Plates Food">
+        </div>
+        <div class="gallery-item" onclick="openLightbox(13)">
+            <img src="images/privateplates/private plates food 14.jpg" alt="Private Plates Food">
+        </div>
+    </div>
+</div>
             </div>
         </div>
     </section>
@@ -1516,7 +1515,9 @@
                     <p class="reference-text"></p>
                 </div>
             </div>
-            <p style="margin-top: 32px; max-width: 800px; margin-left: auto; margin-right: auto; color: rgba(75, 85, 99, 1);"></p>
+            <p style="margin-top: 32px; max-width: 800px; margin-left: auto; margin-right: auto; color: rgba(75, 85, 99, 1);">
+                
+            </p>
         </div>
     </section>
 
@@ -1688,7 +1689,7 @@
                     "Crafted for Your Taste."
                 </div>
                 <div class="footer-logo">
-                    <img src="images/privateplates/Private_Plates-removebg-preview.png" alt="Private Plates Logo">
+                     <img src="images/privateplates/Private_Plates-removebg-preview.png" alt="Private Plates Logo">
                 </div>
             </div>
             <div class="footer-contact">
@@ -1710,175 +1711,6 @@
     </footer>
 
     <script>
-        // Sürüm kontrolü için
-        const CURRENT_VERSION = '1.0.2';
-        
-        // Sayfa yüklendiğinde sürüm kontrolü yap
-        document.addEventListener('DOMContentLoaded', function() {
-            // Önbellek temizleme için rastgele parametre ekle
-            const links = document.querySelectorAll('link[rel="stylesheet"]');
-            links.forEach(link => {
-                const url = new URL(link.href);
-                url.searchParams.set('v', CURRENT_VERSION);
-                link.href = url.toString();
-            });
-            
-            // localStorage'dan önceki sürümü kontrol et
-            const previousVersion = localStorage.getItem('privatePlates_version');
-            
-            if (!previousVersion || previousVersion !== CURRENT_VERSION) {
-                // Yeni sürüm algılandı, localStorage'ı temizle
-                localStorage.removeItem('privatePlates_hero');
-                localStorage.removeItem('privatePlates_process');
-                localStorage.removeItem('privatePlates_events');
-                localStorage.removeItem('privatePlates_about');
-                localStorage.removeItem('privatePlates_testimonials');
-                localStorage.removeItem('privatePlates_contact');
-                localStorage.removeItem('privatePlates_footer');
-                
-                // Yeni sürümü kaydet
-                localStorage.setItem('privatePlates_version', CURRENT_VERSION);
-                
-                // Kullanıcıya sayfayı yenilemesini öner
-                document.getElementById('cacheNotification').style.display = 'block';
-            }
-            
-            // localStorage'dan verileri yükleme
-            loadContentFromStorage();
-            
-            // Animasyonları başlat
-            animateOnScroll();
-        });
-
-        // localStorage'dan içerik yükleme fonksiyonu
-        function loadContentFromStorage() {
-            try {
-                // Hero section verileri
-                const heroData = JSON.parse(localStorage.getItem('privatePlates_hero'));
-                if (heroData) {
-                    const heroTitle = document.querySelector('.hero-title');
-                    if (heroTitle) {
-                        heroTitle.innerHTML = `<span style="font-family: 'Futura', sans-serif;">${heroData.title1}</span> 
-                                              <span class="accent">${heroData.title2}</span>`;
-                    }
-                    
-                    const heroText = document.querySelector('.hero-text');
-                    if (heroText) heroText.textContent = heroData.subtitle;
-                    
-                    const heroBtn1 = document.querySelector('.btn-primary');
-                    if (heroBtn1) heroBtn1.textContent = heroData.btn1;
-                    
-                    const heroBtn2 = document.querySelector('.btn-secondary');
-                    if (heroBtn2) heroBtn2.textContent = heroData.btn2;
-                    
-                    const heroBtn3 = document.querySelector('.btn-third');
-                    if (heroBtn3) {
-                        heroBtn3.textContent = heroData.btn3;
-                        heroBtn3.href = heroData.btn3Link;
-                    }
-                }
-                
-                // Process steps verileri
-                const processData = JSON.parse(localStorage.getItem('privatePlates_process'));
-                if (processData) {
-                    const stepElements = document.querySelectorAll('.process-step');
-                    stepElements.forEach((step, index) => {
-                        const stepNum = index + 1;
-                        if (processData[stepNum]) {
-                            const stepText = step.querySelector('.step-text');
-                            if (stepText) stepText.textContent = processData[stepNum];
-                        }
-                    });
-                }
-                
-                // Events verileri
-                const eventsData = JSON.parse(localStorage.getItem('privatePlates_events'));
-                if (eventsData) {
-                    const eventElements = document.querySelectorAll('.event-card');
-                    const eventTypes = ['corporate', 'weddings', 'private', 'mealprep'];
-                    
-                    eventElements.forEach((event, index) => {
-                        if (index < eventTypes.length && eventsData[eventTypes[index]]) {
-                            const eventText = event.querySelector('.event-text');
-                            if (eventText) eventText.textContent = eventsData[eventTypes[index]];
-                        }
-                    });
-                }
-                
-                // About section verileri
-                const aboutData = JSON.parse(localStorage.getItem('privatePlates_about'));
-                if (aboutData) {
-                    const aboutText1 = document.querySelector('.about-text p:nth-child(2)');
-                    if (aboutText1 && aboutData.text1) aboutText1.textContent = aboutData.text1;
-                    
-                    const aboutText2 = document.querySelector('.about-text p:nth-child(3)');
-                    if (aboutText2 && aboutData.text2) aboutText2.textContent = aboutData.text2;
-                    
-                    const aboutText3 = document.querySelector('.about-text p:nth-child(4)');
-                    if (aboutText3 && aboutData.text3) aboutText3.textContent = aboutData.text3;
-                }
-                
-                // Testimonials verilerini yükleme
-                const testimonialsData = JSON.parse(localStorage.getItem('privatePlates_testimonials'));
-                if (testimonialsData) {
-                    const testimonialCards = document.querySelectorAll('.testimonial-card');
-                    const testimonialContainer = document.querySelector('.testimonials-grid');
-                    
-                    let index = 0;
-                    for (const key in testimonialsData) {
-                        if (testimonialsData.hasOwnProperty(key)) {
-                            const testimonial = testimonialsData[key];
-                            
-                            if (testimonialCards[index]) {
-                                // Mevcut kartı güncelle
-                                const testimonialText = testimonialCards[index].querySelector('.testimonial-text');
-                                if (testimonialText) testimonialText.textContent = testimonial.text;
-                                
-                                const authorName = testimonialCards[index].querySelector('.author-info h4');
-                                if (authorName) authorName.textContent = testimonial.name;
-                                
-                                const authorTitle = testimonialCards[index].querySelector('.author-info p');
-                                if (authorTitle) authorTitle.textContent = testimonial.title;
-                            }
-                            index++;
-                        }
-                    }
-                }
-                
-                // Contact verileri
-                const contactData = JSON.parse(localStorage.getItem('privatePlates_contact'));
-                if (contactData) {
-                    const phoneLink = document.querySelector('.contact-info a[href^="tel:"]');
-                    if (phoneLink) {
-                        phoneLink.textContent = contactData.phone;
-                        phoneLink.href = `tel:${contactData.phone}`;
-                    }
-                    
-                    const emailLink = document.querySelector('.contact-info a[href^="mailto:"]');
-                    if (emailLink) {
-                        emailLink.textContent = contactData.email;
-                        emailLink.href = `mailto:${contactData.email}`;
-                    }
-                    
-                    const locationText = document.querySelector('.contact-info p');
-                    if (locationText) locationText.textContent = contactData.location;
-                    
-                    const instagramLink = document.querySelector('.social-link[href*="instagram"]');
-                    if (instagramLink) instagramLink.href = contactData.instagram;
-                }
-                
-                // Footer verileri
-                const footerData = JSON.parse(localStorage.getItem('privatePlates_footer'));
-                if (footerData) {
-                    const footerSlogan = document.querySelector('.footer-slogan');
-                    if (footerSlogan) footerSlogan.textContent = `"${footerData.slogan}"`;
-                }
-                
-            } catch (error) {
-                console.error('LocalStorage yükleme hatası:', error);
-            }
-        }
-
         // Mobile menu functionality
         function openMobileMenu() {
             document.getElementById('mobileMenu').classList.add('active');
@@ -1983,22 +1815,22 @@
         });
 
         // Lightbox functionality
-        const galleryImages = [
-            'images/privateplates/private plates food 01.jpg',
-            'images/privateplates/private plates food 02.jpg',
-            'images/privateplates/private plates food 03.jpg',
-            'images/privateplates/private plates food 04.jpg',
-            'images/privateplates/private plates food 05.jpg',
-            'images/privateplates/private plates food 06.jpg',
-            'images/privateplates/private plates food 07.jpg',
-            'images/privateplates/private plates food 08.jpg',
-            'images/privateplates/private plates food 09.jpg',
-            'images/privateplates/private plates food 10.jpg',
-            'images/privateplates/private plates food 11.jpg',
-            'images/privateplates/private plates food 12.jpg',
-            'images/privateplates/private plates food 13.jpg',
-            'images/privateplates/private plates food 14.jpg'
-        ];
+      // Lightbox functionality
+const galleryImages = [
+    'images/privateplates/private plates food 01.jpg',
+    'images/privateplates/private plates food 02.jpg',
+    'images/privateplates/private plates food 03.jpg',
+    'images/privateplates/private plates food 04.jpg',
+    'images/privateplates/private plates food 05.jpg',
+    'images/privateplates/private plates food 06.jpg',
+    'images/privateplates/private plates food 07.jpg',
+    'images/privateplates/private plates food 08.jpg',
+    'images/privateplates/private plates food 09.jpg',
+    
+    'images/privateplates/private plates food 12.jpg',
+    'images/privateplates/private plates food 13.jpg',
+    'images/privateplates/private plates food 14.jpg'
+];
 
         let currentImageIndex = 0;
 
@@ -2047,20 +1879,12 @@
             }
         });
 
-        // Tarayıcı önbelleğini temizlemek için yardımcı fonksiyon
-        function clearBrowserCache() {
-            // localStorage temizleme
-            localStorage.removeItem('privatePlates_hero');
-            localStorage.removeItem('privatePlates_process');
-            localStorage.removeItem('privatePlates_events');
-            localStorage.removeItem('privatePlates_about');
-            localStorage.removeItem('privatePlates_testimonials');
-            localStorage.removeItem('privatePlates_contact');
-            localStorage.removeItem('privatePlates_footer');
-            
-            // Sayfayı yeniden yükle
-            location.reload(true);
-        }
+        
+        
+        
     </script>
 </body>
 </html>
+
+
+
