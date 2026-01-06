@@ -233,6 +233,105 @@
             overflow: hidden;
         }
 
+        /* Slider Styles */
+        .slideshow-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            z-index: 10;
+            padding: 0 20px;
+            text-align: left;
+        }
+
+        .slide-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background-color: var(--gold-accent);
+            transform: scale(1.2);
+        }
+
+        .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .slide-nav.prev {
+            left: 20px;
+        }
+
+        .slide-nav.next {
+            right: 20px;
+        }
+
+        /* Hide default hero content */
+        .hero-content {
+            display: none;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -250,24 +349,10 @@
             overflow: hidden;
         }
 
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .hero-overlay {
             position: absolute;
             inset: 0;
             background: rgba(255, 255, 255, 0.2);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin-left: 200px;
-            margin-top: 100px;
         }
 
         .hero-title {
@@ -631,6 +716,15 @@
 
         .service-cta {
             text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* PDF Button Styling */
+        .cta-btn i {
+            margin-right: 8px;
         }
 
         /* Testimonials Section */
@@ -1105,12 +1199,6 @@
                 font-size: 2.5rem;
             }
 
-            .hero-content {
-                margin-left: 0;
-                text-align: center;
-                padding: 0 20px;
-            }
-
             .hero-cta {
                 flex-direction: column;
                 align-items: center;
@@ -1164,6 +1252,31 @@
             .form-options-group {
                 grid-template-columns: 1fr;
             }
+
+            .slide-content {
+                text-align: center;
+                padding: 0 20px;
+            }
+            
+            .slide-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .slide-indicators {
+                bottom: 20px;
+            }
+
+            .service-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .service-cta .cta-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1172,26 +1285,24 @@
                 gap: 10px;
             }
 
-            .hero-content {
+            .slide-content {
                 margin-top: 200px;
                 text-align: center;
                 padding: 0 20px;
             }
 
-
             .hero-title{
                 font-size: 30px;
-            font-weight: 100;
-            line-height: 1.0;
-           
+                font-weight: 100;
+                line-height: 1.0;
             }
 
             .hero-text {
-            font-size: 0.8rem;
-            color: var(--navy-primary);
-            margin-bottom: 32px;
-            max-width: 700px;
-        }
+                font-size: 0.8rem;
+                color: var(--navy-primary);
+                margin-bottom: 32px;
+                max-width: 700px;
+            }
             
             .btn-third {
                 padding: 15px;
@@ -1205,7 +1316,9 @@
                 margin-right:20px;
             }
 
-            
+            .slide-nav {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -1254,29 +1367,87 @@
         <a onclick="scrollToSection('contact'); closeMobileMenu();" class="cta-btn" style="margin-top: 2rem;">Request A Quote</a>
     </div>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Slider -->
     <section id="home" class="hero">
         <div class="hero-bg">
-            <img src="images/privateplates/chefaj.jpg" alt="Elegant fine dining">
-            <div class="hero-overlay"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title font-serif">
-                    <span style="font-family: 'Futura', sans-serif;">Chef AJ — Michelin-Trained</span>
-                </h1> 
-                <h2 class="hero-title font-serif">
-                    <span class="accent">Private Chef in Vancouver</span>
-                </h2>
-                <p class="hero-text">
-                    Healthy weekly meal prep, bespoke catering, and unforgettable dining experiences for busy families and celebrations across Vancouver & Burnaby.
-                </p>
-                <div class="hero-cta">
-                    <a onclick="scrollToSection('contact')" class="btn-primary">Work With AJ</a>
-                    <a onclick="scrollToSection('services')" class="btn-secondary">View Services</a>
-                    <a href="https://www.canva.com/design/DAGyKcyIUgM/5noK1YfGRfwlh8aVhWW7iQ/view?utm_content=DAGyKcyIUgM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hd5fd2800b7" target="_blank" class="btn-third">WEEKLY MEAL PREP MENU</a>
+            <div class="slideshow-container">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <img src="images/privateplates/chefaj.jpg" alt="Elegant fine dining">
+                    <div class="slide-content">
+                        <h1 class="hero-title font-serif">
+                            <span style="font-family: 'Futura', sans-serif;">Chef AJ — Michelin-Trained</span>
+                        </h1> 
+                        <h2 class="hero-title font-serif">
+                            <span class="accent">Private Chef in Vancouver</span>
+                        </h2>
+                        <p class="hero-text">
+                            Healthy weekly meal prep, bespoke catering, and unforgettable dining experiences for busy families and celebrations across Vancouver & Burnaby.
+                        </p>
+                        <div class="hero-cta">
+                            <a onclick="scrollToSection('contact')" class="btn-primary">Work With AJ</a>
+                            <a onclick="scrollToSection('services')" class="btn-secondary">View Services</a>
+                            <a href="Private Plates Menu-3.pdf" target="_blank" class="btn-third">WEEKLY MEAL PREP MENU</a>
+                        </div>
+                    </div>
+                    <div class="hero-overlay"></div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <img src="images/privateplates/wedding.jpg" alt="Weddings & Events">
+                    <div class="slide-content">
+                        <h1 class="hero-title font-serif">
+                            <span style="font-family: 'Futura', sans-serif;">Weddings & Events</span>
+                        </h1> 
+                        <h2 class="hero-title font-serif">
+                            <span class="accent">Boutique Catering Service</span>
+                        </h2>
+                        <p class="hero-text">
+                            Custom catering for 20–200 guests. Seasonal menus, grazing tables, plated dinners, and full dietary accommodations for your special day.
+                        </p>
+                        <div class="hero-cta">
+                            <a onclick="scrollToSection('services')" class="btn-primary">View Wedding Packages</a>
+                            <a onclick="scrollToSection('contact')" class="btn-secondary">Request Quote</a>
+                            <a href="Private Plates Menu-3.pdf" target="_blank" class="btn-third">WEDDING MENU PDF</a>
+                        </div>
+                    </div>
+                    <div class="hero-overlay"></div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <img src="images/privateplates/event.jpg" alt="Private Dining">
+                    <div class="slide-content">
+                        <h1 class="hero-title font-serif">
+                            <span style="font-family: 'Futura', sans-serif;">Private Dining</span>
+                        </h1> 
+                        <h2 class="hero-title font-serif">
+                            <span class="accent">In-Home Chef Experience</span>
+                        </h2>
+                        <p class="hero-text">
+                            Bespoke tasting menus or family feasts cooked in your kitchen. Perfect for anniversaries, birthdays, and VIP evenings with personalized service.
+                        </p>
+                        <div class="hero-cta">
+                            <a onclick="scrollToSection('services')" class="btn-primary">View Private Dining</a>
+                            <a onclick="scrollToSection('contact')" class="btn-secondary">Book Experience</a>
+                            <a href="Private Plates Menu-3.pdf" target="_blank" class="btn-third">PRIVATE DINING MENU PDF</a>
+                        </div>
+                    </div>
+                    <div class="hero-overlay"></div>
                 </div>
             </div>
+            
+            <!-- Slide Indicators -->
+            <div class="slide-indicators">
+                <span class="indicator active" onclick="currentSlide(0)"></span>
+                <span class="indicator" onclick="currentSlide(1)"></span>
+                <span class="indicator" onclick="currentSlide(2)"></span>
+            </div>
+            
+            <!-- Navigation Arrows -->
+            <button class="slide-nav prev" onclick="plusSlides(-1)">❮</button>
+            <button class="slide-nav next" onclick="plusSlides(1)">❯</button>
         </div>
     </section>
 
@@ -1443,6 +1614,9 @@
                         
                         <div class="service-cta">
                             <a onclick="scrollToSection('contact')" class="cta-btn">Start Meal Prep</a>
+                            <a href="YOUR_MEAL_PREP_PDF_LINK_HERE" target="_blank" class="cta-btn" style="background-color: var(--navy-primary); color: white; border-color: var(--navy-primary);">
+                                <i class="fas fa-file-pdf"></i> View PDF Menu
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1476,13 +1650,16 @@
                         
                         <div class="service-cta">
                             <a onclick="scrollToSection('contact')" class="cta-btn">Book Catering</a>
+                            <a href="YOUR_WEDDING_PDF_LINK_HERE" target="_blank" class="cta-btn" style="background-color: var(--navy-primary); color: white; border-color: var(--navy-primary);">
+                                <i class="fas fa-file-pdf"></i> Wedding Menu PDF
+                            </a>
                         </div>
                     </div>
                 </div>
                 
                 <div class="service-card animate-on-scroll">
                     <div class="service-image">
-                        <img src="https://images.unsplash.com/photo-1571397946750-99369f2a4e53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJchaHwxfHxwcml2YXRlJTIwZGlubmVyJTIwcGFydHl8ZW58MXx8fHwxNzU7MTQ3MzkxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="Private Dining">
+                        <img src="https://images.unsplash.com/photo-1571397946750-99369f2a4e53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJchaHwxfHxwcml2YXRlJTIwZGlubmVyJTIwcGFydHl8ZW58MXx8fHwxNzU3MTQ3MzkxfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral" alt="Private Dining">
                     </div>
                     <div class="service-content">
                         <h3 class="service-title">Private Dining</h3>
@@ -1509,6 +1686,9 @@
                         
                         <div class="service-cta">
                             <a onclick="scrollToSection('contact')" class="cta-btn">Plan a Dinner</a>
+                            <a href="YOUR_PRIVATE_DINING_PDF_LINK_HERE" target="_blank" class="cta-btn" style="background-color: var(--navy-primary); color: white; border-color: var(--navy-primary);">
+                                <i class="fas fa-file-pdf"></i> Private Dining PDF
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1932,6 +2112,59 @@
                 } else if (e.key === 'ArrowRight') {
                     changeImage(1);
                 }
+            }
+        });
+
+        // Slider functionality
+        let slideIndex = 0;
+        let slideInterval;
+
+        function showSlides(n) {
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            if (n >= slides.length) slideIndex = 0;
+            if (n < 0) slideIndex = slides.length - 1;
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            // Show current slide
+            slides[slideIndex].classList.add('active');
+            indicators[slideIndex].classList.add('active');
+        }
+
+        function plusSlides(n) {
+            clearInterval(slideInterval);
+            showSlides(slideIndex += n);
+            startSlideShow();
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            slideIndex = n;
+            showSlides(slideIndex);
+            startSlideShow();
+        }
+
+        function startSlideShow() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                plusSlides(1);
+            }, 3000); // 3 seconds
+        }
+
+        // Initialize slider on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides(slideIndex);
+            startSlideShow();
+            
+            // Pause on hover
+            const slider = document.querySelector('.slideshow-container');
+            if (slider) {
+                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                slider.addEventListener('mouseleave', startSlideShow);
             }
         });
     </script>
