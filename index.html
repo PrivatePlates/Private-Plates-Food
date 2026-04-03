@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +84,7 @@
             background: rgba(255,255,255,0.96);
             box-shadow: 0 6px 18px rgba(0,0,0,0.02);
             backdrop-filter: blur(8px);
-            padding: 0.8rem 0;
+            padding: 0.6rem 0;
         }
         .nav-content {
             display: flex;
@@ -96,8 +95,12 @@
             padding: 0 32px;
         }
         .logo {
-            height: 125px;
+            height: 95px;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.02));
+            transition: height 0.2s;
+        }
+        .navbar.scrolled .logo {
+            height: 70px;
         }
         .logo img {
             height: 100%;
@@ -190,6 +193,7 @@
             display: flex;
             align-items: center;
             position: relative;
+            padding-top: 40px;
         }
         .hero-container {
             max-width: 1280px;
@@ -576,6 +580,14 @@
             gap: 2rem;
             align-items: center;
         }
+        .footer-logo-small {
+            height: 85px;
+        }
+        .footer-logo-small img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
         .footer-contact a {
             color: var(--text-charcoal);
             text-decoration: none;
@@ -666,20 +678,47 @@
             .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
         }
         @media (max-width: 900px) {
-            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .hero {
+                padding-top: 100px;
+                min-height: auto;
+                padding-bottom: 60px;
+            }
+            .hero-container { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+                gap: 2rem; 
+            }
             .hero-content p { max-width: 100%; }
+            .hero-content h1 {
+                font-size: 2.6rem;
+                margin-top: 0.5rem;
+            }
             .btn-group { justify-content: center; }
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
             .section-title { font-size: 2.5rem; }
-            .hero-content h1 { font-size: 2.8rem; }
             .gallery-grid { grid-template-columns: repeat(2, 1fr); }  /* Mobile 2 columns */
+            .logo {
+                height: 70px;
+            }
+            .navbar.scrolled .logo {
+                height: 55px;
+            }
         }
         @media (max-width: 550px) {
             .container { padding: 0 20px; }
+            .hero {
+                padding-top: 110px;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
             .features-grid { grid-template-columns: 1fr; }
             .gallery-grid { gap: 1rem; }
             .service-card h3 { font-size: 1.5rem; }
+            .footer-logo-small {
+                height: 65px;
+            }
         }
     </style>
 </head>
@@ -708,7 +747,7 @@
 </div>
 
 <!-- Hero -->
-<section class="hero"><div class="hero-container"><div class="hero-content animate-on-scroll"><h1>Chef-Crafted Meal Prep & Private Dining</h1><p>Personalized weekly meals and in-home chef experiences, designed around freshness, convenience, and elevated everyday dining.</p><div class="btn-group"><a class="btn-primary" onclick="scrollToId('contact')">Inquire Now</a><a class="btn-outline" onclick="scrollToId('services')">Explore Services</a></div></div><div class="hero-image animate-on-scroll"><img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=800&auto=format" alt="Chef presentation"></div></div></section>
+<section class="hero"><div class="hero-container"><div class="hero-content animate-on-scroll"><h1>Chef-Crafted Meal Prep & Private Dining</h1><p>Personalized weekly meals and in-home chef experiences, designed around freshness, convenience, and elevated everyday dining.</p><div class="btn-group"><a class="btn-primary" onclick="scrollToId('contact')">Inquire Now</a><a class="btn-outline" onclick="scrollToId('services')">Explore Services</a></div></div><div class="hero-image animate-on-scroll"><img src="images/privateplates/chefaj.jpg" alt="Chef presentation"></div></div></section>
 
 <!-- Philosophy premium bg #8a6500 -->
 <section id="philosophy" class="philosophy premium-bg"><div class="container"><h2 class="section-title">Our Philosophy</h2><div class="section-divider"></div><div class="philosophy-text animate-on-scroll"><p>At Private Plates, we believe convenience should still feel exceptional. Whether we are stocking your fridge with beautifully prepared meals for the week or creating a more intimate private dining experience, our approach stays the same: food should feel fresh, personal, and held to a higher standard.</p><p>Our meal service is intentionally built around two deliveries each week. We take this approach because freshness matters. Instead of preparing food meant to sit for the entire week, we deliver in two rounds so meals maintain better texture, better flavor, and a more vibrant overall experience.</p><p>We believe personalization is just as important as quality. Every client has different tastes, routines, goals, and expectations, which is why our menus are tailored rather than templated. From nourishing weekly meal prep to elevated family-style dining and private chef experiences, each menu is created with care and adapted to the people it is made for.</p><p>We also believe the experience goes beyond the food itself. Our meals are packed in reusable glass containers for a cleaner, more refined alternative to plastic — practical for reheating, better for presentation, and more aligned with the level of care behind each delivery.</p><p>Rooted in professional kitchen experience and inspired by hospitality, Private Plates brings a chef-led approach to modern living: thoughtful food, polished execution, and a more elevated way to eat at home.</p></div></div></section>
@@ -722,7 +761,7 @@
 <!-- How It Works -->
 <section id="how" class="how-it-works"><div class="container"><h2 class="section-title">How It Works</h2><div class="section-divider"></div><div class="steps"><div class="step animate-on-scroll"><div class="step-number">1</div><h4>Consultation</h4><p>We get to know your tastes, preferences, dietary needs, and lifestyle.</p></div><div class="step animate-on-scroll"><div class="step-number">2</div><h4>Custom Menu Planning</h4><p>Each week’s menu is thoughtfully curated around what you actually enjoy eating.</p></div><div class="step animate-on-scroll"><div class="step-number">3</div><h4>Chef Preparation</h4><p>Your meals are prepared with a chef-led approach, using quality ingredients and careful attention to detail.</p></div><div class="step animate-on-scroll"><div class="step-number">4</div><h4>Twice-Weekly Delivery</h4><p>Meals are delivered twice a week in reusable glass containers so they stay fresher and more enjoyable throughout the week.</p></div></div></div></section>
 
-<!-- Crafted Moments Gallery -->
+<!-- Crafted Moments Gallery with updated images -->
 <section id="gallery" class="gallery-section"><div class="container"><h2 class="section-title">Crafted Moments</h2><div class="section-divider"></div><div class="gallery-grid" id="galleryGrid"></div></div></section>
 
 <!-- About Private Plates premium bg #8a6500 -->
@@ -734,14 +773,36 @@
 <!-- Contact -->
 <section id="contact" class="contact-section"><div class="contact-container"><h2 class="section-title" style="color:white;">Let’s create a more thoughtful way for you to dine at home.</h2><div class="section-divider"></div><form class="contact-form" action="https://formspree.io/f/mldwaryk" method="POST"><input type="text" name="name" placeholder="Full name" required><input type="email" name="email" placeholder="Email address" required><input type="text" name="phone" placeholder="Phone number"><select name="serviceType" required><option disabled selected>Select service interest</option><option>Weekly Meal Prep</option><option>Private Chef Dining</option><option>Event / Wedding Catering</option><option>Other</option></select><textarea rows="4" name="message" placeholder="Tell us about your vision or dietary preferences..."></textarea><button type="submit">Request a Quote →</button></form></div></section>
 
-<footer class="footer"><div class="container"><div class="footer-content"><div class="footer-logo-small"><img src="images/privateplates/Private_Plates-removebg-preview.png" alt="Private Plates" style="height:65px;"></div><div class="footer-contact"><a href="tel:6479074993"><i class="fas fa-phone-alt"></i> (647) 907-4993</a><a href="mailto:privateplatesfood@gmail.com"><i class="fas fa-envelope"></i> privateplatesfood@gmail.com</a><p><i class="fas fa-map-marker-alt"></i> Burnaby, BC</p></div><div class="social-links"><a href="https://www.instagram.com/privateplatesfood/" target="_blank"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div><div class="copyright"><p>&copy; 2025 Private Plates — <a href="https://www.instagram.com/bigsparkmedia/" target="_blank" style="color: var(--navy-deep);">Big Spark Media</a></p></div></div></footer>
+<footer class="footer"><div class="container"><div class="footer-content"><div class="footer-logo-small"><img src="images/privateplates/Private_Plates-removebg-preview.png" alt="Private Plates"></div><div class="footer-contact"><a href="tel:6479074993"><i class="fas fa-phone-alt"></i> (647) 907-4993</a><a href="mailto:privateplatesfood@gmail.com"><i class="fas fa-envelope"></i> privateplatesfood@gmail.com</a><p><i class="fas fa-map-marker-alt"></i> Burnaby, BC</p></div><div class="social-links"><a href="https://www.instagram.com/privateplatesfood/" target="_blank"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a></div></div><div class="copyright"><p>&copy; 2025 Private Plates — <a href="https://www.instagram.com/bigsparkmedia/" target="_blank" style="color: var(--navy-deep);">Big Spark Media</a></p></div></div></footer>
 
 <div class="lightbox" id="lightbox"><button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button><div class="lightbox-content"><img src="" id="lightboxImg"></div><div class="lightbox-nav"><button class="lightbox-btn" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button><button class="lightbox-btn" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button></div></div>
 
 <script>
-    const galleryImages = ['images/privateplates/private plates food 01.jpg','images/privateplates/private plates food 02.jpg','images/privateplates/private plates food 03.jpg','images/privateplates/private plates food 04.jpg','images/privateplates/private plates food 05.jpg','images/privateplates/private plates food 06.jpg','images/privateplates/private plates food 07.jpg','images/privateplates/private plates food 08.jpg','images/privateplates/private plates food 09.jpg','images/privateplates/private plates food 12.jpg','images/privateplates/private plates food 13.jpg','images/privateplates/private plates food 14.jpg','images/privateplates/private plates food 23.jpg','images/privateplates/private plates food 24.jpg'];
+    // NEW GALLERY IMAGES as requested: privateplatesimg01.jpeg through privateplatesimg06.jpeg (6 images)
+    const galleryImages = [
+        'images/privateplates/privateplatesimg01.jpeg',
+        'images/privateplates/privateplatesimg02.jpeg',
+        'images/privateplates/privateplatesimg03.jpeg',
+        'images/privateplates/privateplatesimg04.jpeg',
+        'images/privateplates/privateplatesimg05.jpeg',
+        'images/privateplates/privateplatesimg06.jpeg'
+    ];
     let currentIdx = 0;
-    function renderGallery() { const grid = document.getElementById('galleryGrid'); if(!grid) return; grid.innerHTML = ''; galleryImages.forEach((src, idx) => { const item = document.createElement('div'); item.className = 'gallery-item animate-on-scroll'; item.innerHTML = `<img src="${src}" alt="Crafted moment"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>`; item.addEventListener('click', () => openLightbox(idx)); grid.appendChild(item); }); setTimeout(() => { document.querySelectorAll('#galleryGrid .gallery-item').forEach(el => el.classList.add('animated')); }, 100); }
+    function renderGallery() { 
+        const grid = document.getElementById('galleryGrid'); 
+        if(!grid) return; 
+        grid.innerHTML = ''; 
+        galleryImages.forEach((src, idx) => { 
+            const item = document.createElement('div'); 
+            item.className = 'gallery-item animate-on-scroll'; 
+            item.innerHTML = `<img src="${src}" alt="Crafted moment"><div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>`; 
+            item.addEventListener('click', () => openLightbox(idx)); 
+            grid.appendChild(item); 
+        }); 
+        setTimeout(() => { 
+            document.querySelectorAll('#galleryGrid .gallery-item').forEach(el => el.classList.add('animated')); 
+        }, 100); 
+    }
     function openLightbox(index) { currentIdx = index; document.getElementById('lightboxImg').src = galleryImages[currentIdx]; document.getElementById('lightbox').classList.add('active'); document.body.style.overflow = 'hidden'; }
     function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow = 'auto'; }
     function changeImage(d) { currentIdx += d; if(currentIdx < 0) currentIdx = galleryImages.length-1; if(currentIdx >= galleryImages.length) currentIdx = 0; document.getElementById('lightboxImg').src = galleryImages[currentIdx]; }
